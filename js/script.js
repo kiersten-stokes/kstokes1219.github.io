@@ -29,9 +29,12 @@ function applySmoothScroll () {
 }
 
 
+
 function startGame() {
 
 	let isDragging = false;
+	let activeDroppable = null;
+	let dropTarget = document.getElementById("animal-pen");
 	var found = {bird:false, hams:false, ele:false, snake:false, pig:false, sheep:false};
 
 	document.addEventListener('mousedown', function(event) {
@@ -60,22 +63,25 @@ function startGame() {
 			alert("You found all the animals!");
 		}
 		
-
-		function onMouseUp(event) {
-			finishDrag();
-
-			// Get element at dragable's new coordinates
+		
+		function getDropElement(event) {
+			// Get element at draggable's new coordinates
 			dragElement.hidden = true;
 			let elemBelow = document.elementFromPoint(event.clientX, event.clientY);
 			dragElement.hidden = false;
 
-			if (elemBelow == null) return;
+			return elemBelow.closest('.droppable');
+		}
+
+		function onMouseUp(event) {
+			finishDrag();
 			
-			// Get closest droppable element
-			let dropElement = elemBelow.closest('.droppable');	
+			if (activeDroppable == dropTarget) activeDroppable.style.boxShadow = '';
+			
+			let dropElement = getDropElement(event);
 			
 			// If draggable over droppable, change position of draggable
-			if (dropElement == null) {
+			if (dropElement != dropTarget) {
 				dragElement.style.position = 'absolute';
 				if (found[dragElementName] == true) found[dragElementName] = false;
 			} else {
@@ -90,6 +96,19 @@ function startGame() {
 
 		function onMouseMove(event) {
 			moveAt(event.clientX, event.clientY);
+			
+			let dropElement = getDropElement(event);
+			
+			// If draggable over droppable, change format of droppable
+			if (activeDroppable != dropElement) {
+				if (activeDroppable) {
+					activeDroppable.style.boxShadow = '';
+				}
+				activeDroppable = dropElement;
+				if (activeDroppable) {
+					activeDroppable.style.boxShadow = '0 0 30px 5px #F0D048';
+				}
+			}
 		}
 
 
