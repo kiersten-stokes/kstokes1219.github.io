@@ -41,13 +41,13 @@ body {
 
 #sheep {
 	left:75%;
-	top:260px;
+	top:300px;
 	z-index:995;
 }
 
 #pig {
-	right:25%;
-	top:60%;
+	left:29%;
+	top:52%;
 	z-index:994;
 }
 
@@ -64,7 +64,7 @@ body {
 }
 
 #hams {
-	left:35%;
+	left:65%;
 	top:43%;
 	z-index:991;
 }

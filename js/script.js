@@ -1,7 +1,8 @@
 $(document).ready(function(){
 	applySmoothScroll();
 	collapseNavbarXS();
-	startGame();
+	startMouseGame();
+	//startTouchGame();
 });
 
 
@@ -30,7 +31,7 @@ function applySmoothScroll () {
 
 
 
-function startGame() {
+function startMouseGame() {
 
 	let isDragging = false;
 	let activeDroppable = null;
